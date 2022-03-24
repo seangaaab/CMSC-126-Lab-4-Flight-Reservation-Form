@@ -156,7 +156,7 @@ function empty() {
 }
 
 function change_fare() {
-    if (x = document.getElementById("fare").value == "rt") {
+    if (document.getElementById("fare").value == "rt") {
         document.getElementById("return_date").style.visibility = "visible";
         document.getElementById("return_label").style.visibility = "visible";
     } else {
