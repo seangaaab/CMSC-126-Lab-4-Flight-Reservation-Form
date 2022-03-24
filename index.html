@@ -56,7 +56,7 @@
         <div class="input-container ic2 space">
         </div>
         <div class="input-container ic2 row">
-            <input id="postal" class="input postal-box" type="text" placeholder=" " onkeypress="return onlyNumberKey(event) "/>
+            <input id="postal" class="input postal-box" type="text" placeholder=" " maxlength="4" onkeypress="return onlyNumberKey(event)" />
             <div class="cut postal-cut"></div>
             <label for="province " class="placeholder">Postal Code</>
         </div>
@@ -66,7 +66,7 @@
             <label for="country " class="placeholder ">Country</>
         </div>
         <div class="input-container ic2">
-            <input id="email" class="input" type="text" placeholder=" " />
+            <input id="email" class="input" type="text" placeholder=" "/>
             <div class="cut cut-short"></div>
             <label for="email" class="placeholder">Email</>
         </div>
@@ -85,8 +85,8 @@
         <div class="input-container ic2 fare ">
             <select id="fare" class="select_gender select_fare " onchange="change_fare()">
                 <option style="display: none" selected> </option>
-                <option value="ow">One-Way</option>
-                <option value="rt">Round-Trip</option>
+                <option value="One-Way">One-Way</option>
+                <option value="Round-Trip">Round-Trip</option>
             </select>
             <div class="cut fare-cut "></div>
             <label for="fare " class="placeholder placeholder_fare ">Fare</label>
@@ -151,7 +151,7 @@
         </div>  
         <div>
             <button type="text" class="submit " id="back1" onclick="back(1) ">Back</button>
-            <button type="text" class="page_next " id="next2" onclick="reserve(); next(2); ">Reserve Flight</button>
+            <button type="text" class="page_next " id="next2" onclick="reserve();">Reserve Flight</button>
         </div>
         <!-- The Modal -->
     <div id="myModal" class="modal ">
@@ -189,7 +189,7 @@
                     <p id="out_destination"class="output "></p><br><br>
                     <p>Departure Date: </p>
                     <p id="out_dep-date"class="output "></p><br><br>
-                    <p>Return Date: </p>
+                    <p id="return_date_label">Return Date: </p>
                     <p id="out_ret-date"class="output "></p><br><br>
                     <p>Airline: </p>
                     <p id="out_airline"class="output "></p><br><br><br><br>

@@ -71,16 +71,27 @@ function reserve() {
     let country = document.getElementById("country").value;
     let email = document.getElementById("email").value;
     let contact = document.getElementById("contact").value;
-    let fare = getFare();
+    let fare = document.getElementById("fare").value;
     let ticket_class = document.getElementById("ticket_class").value;
     let depart_from = document.getElementById("city_from").value;
     let destination = document.getElementById("city_destination").value;
     let depart_date = getDepDay();
     let return_date = getRetDay();
     let airlines = document.getElementById("airlines").value;
+    let dep = new Date(document.getElementById("depart_date").value);
+    let ret = new Date(document.getElementById("return_date").value);
+    let now = new Date();
+
+    if (fname == null || fname == "", lname == null || lname == "", bday == null || bday == "", gender == null || gender == "", street == null || street == "", city == null || city == "", province == null || province == "", postal == null || postal == "", country == null || country == "", (email == null || email == "") || (validateEmail(email) == false), contact == null || contact == "", fare == null || fare == "", ticket_class == null || ticket_class == "", depart_from == null || depart_from == "", depart_date == null || depart_date == "", destination == null || destination == "", return_date == null || return_date == "", airlines == null || airlines == "") {
+        alert("Please fill all fields.");
+    } else if (email == null || email == "" || (validateEmail(email)) == false) {
+        alert("Please enter a valid email address");
+    } else {
+        next(2);
+    }
 
     let fullname = fname + " " + lname;
-    let address = street + ", " + city + postal + ", " + province + ", " + country;
+    let address = street + ", " + city + " " + postal + ", " + province + ", " + country;
 
     document.getElementById("out_name").innerText = fullname;
     document.getElementById("out_bday").innerText = bday;
@@ -96,6 +107,7 @@ function reserve() {
     document.getElementById("out_ret-date").innerText = return_date;
     document.getElementById("out_airline").innerText = airlines;
     console.log(fare);
+    console.log(validateEmail(email));
     console.log(document.getElementById("return_date").style.visibility);
     console.log(document.getElementById("return_label").style.visibility);
 }
@@ -139,7 +151,8 @@ function empty() {
     airlines = "";
     fullname = "";
     address = "";
-
+    document.getElementById("return_date").style.visibility = "hidden";
+    document.getElementById("return_label").style.visibility = "hidden";
     document.getElementById("out_name").innerText = "";
     document.getElementById("out_bday").innerText = "";
     document.getElementById("out_gender").innerText = "";
@@ -156,12 +169,18 @@ function empty() {
 }
 
 function change_fare() {
-    if (document.getElementById("fare").value == "rt") {
+
+    if (document.getElementById("fare").value == "Round-Trip") {
         document.getElementById("return_date").style.visibility = "visible";
         document.getElementById("return_label").style.visibility = "visible";
+        document.getElementById("return_date_label").style.visibility = "visible";
+        document.getElementById("out_ret-date").style.visibility = "visible";
     } else {
         document.getElementById("return_date").style.visibility = "hidden";
         document.getElementById("return_label").style.visibility = "hidden";
+        document.getElementById("return_date_label").style.visibility = "hidden";
+        document.getElementById("out_ret-date").style.visibility = "hidden";
+        document.getElementById("return_date").value = "";
     }
 }
 
@@ -256,23 +275,7 @@ function allLetter(evt) {
     return true;
 }
 
-function check_null() {
-    document.getElementById("firstname").value = "";
-    document.getElementById("lastname").value = "";
-    document.getElementById("bday").value = "";
-    document.getElementById("gender").value = "";
-    document.getElementById("street").value = "";
-    document.getElementById("city").value = "";
-    document.getElementById("province").value = "";
-    document.getElementById("postal").value = "";
-    document.getElementById("country").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("contact").value = "";
-    document.getElementById("fare").value = "";
-    document.getElementById("ticket_class").value = "";
-    document.getElementById("city_from").value = "";
-    document.getElementById("city_destination").value = "";
-    document.getElementById("depart_date").value = "";
-    document.getElementById("return_date").value = "";
-    document.getElementById("airlines").value = "";
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
 }
