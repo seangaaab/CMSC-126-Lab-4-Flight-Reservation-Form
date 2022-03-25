@@ -78,20 +78,26 @@ function reserve() {
     let depart_date = getDepDay();
     let return_date = getRetDay();
     let airlines = document.getElementById("airlines").value;
-    let dep = new Date(document.getElementById("depart_date").value);
-    let ret = new Date(document.getElementById("return_date").value);
-    let now = new Date();
 
     if (fname == null || fname == "", lname == null || lname == "", bday == null || bday == "", gender == null || gender == "", street == null || street == "", city == null || city == "", province == null || province == "", postal == null || postal == "", country == null || country == "", (email == null || email == "") || (validateEmail(email) == false), contact == null || contact == "", fare == null || fare == "", ticket_class == null || ticket_class == "", depart_from == null || depart_from == "", depart_date == null || depart_date == "", destination == null || destination == "", return_date == null || return_date == "", airlines == null || airlines == "") {
-        alert("Please fill all fields.");
+        alert("Please fill-up all fields.");
     } else if (email == null || email == "" || (validateEmail(email)) == false) {
         alert("Please enter a valid email address");
+    } else if (checkdate() == false) {
+        alert("Depart date must be later than the current time.\nReturn date must also be sooner than depart date.")
+    } else if (checkCity() == false) {
+        alert("Please input only available cities.\nCity of departure and destination must not be the same.");
+        document.getElementById("city_from").value = "";
+        document.getElementById("city_destination").value = "";
+    } else if (checkAir() == false) {
+        alert("Please input only available airlines");
+        document.getElementById("airlines").value = "";
     } else {
         next(2);
     }
 
     let fullname = fname + " " + lname;
-    let address = street + ", " + city + " " + postal + ", " + province + ", " + country;
+    let address = street + ", " + city + ", " + province + " " + postal + ", " + country;
 
     document.getElementById("out_name").innerText = fullname;
     document.getElementById("out_bday").innerText = bday;
@@ -106,10 +112,6 @@ function reserve() {
     document.getElementById("out_dep-date").innerText = depart_date;
     document.getElementById("out_ret-date").innerText = return_date;
     document.getElementById("out_airline").innerText = airlines;
-    console.log(fare);
-    console.log(validateEmail(email));
-    console.log(document.getElementById("return_date").style.visibility);
-    console.log(document.getElementById("return_label").style.visibility);
 }
 
 function empty() {
@@ -181,6 +183,38 @@ function change_fare() {
         document.getElementById("return_date_label").style.visibility = "hidden";
         document.getElementById("out_ret-date").style.visibility = "hidden";
         document.getElementById("return_date").value = "";
+    }
+}
+
+function checkdate() {
+    let now = new Date();
+    let dep = new Date(document.getElementById("depart_date").value);
+    let ret = new Date(document.getElementById("return_date").value);
+    if ((dep > now) && (ret == "Invalid Date" || ret == "") && (document.getElementById("fare").value == "One-Way")) {
+        return true;
+    } else if ((ret > now) && (dep > now) && (dep < ret)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function checkCity() {
+    let c1 = document.getElementById("city_from").value;
+    let c2 = document.getElementById("city_destination").value;
+    if ((c1 == "Davao" || c1 == "Cebu" || c1 == "Manila" || c1 == "Palawan" || c1 == "Cagayan de Oro") && (c2 == "Davao" || c2 == "Cebu" || c2 == "Manila" || c2 == "Palawan" || c2 == "Cagayan de Oro") && (c1 !== c2)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function checkAir() {
+    let airline = document.getElementById("airlines").value;
+    if (airline == "DavAir" || airline == "Cebu Pacific" || airline == "Manila Express" || airline == "Philippine Airlines" || airline == "SpaceX") {
+        return true;
+    } else {
+        return false;
     }
 }
 
