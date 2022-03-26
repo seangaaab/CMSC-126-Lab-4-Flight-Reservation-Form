@@ -11,23 +11,28 @@
 </head>
 
 <body>
+    <!-- ============================================== Form 1 ========================================================== -->
     <div class="form1" id="form1">
         <div class="title">Flight Reservation</div>
         <div class="subtitle">Passenger Information</div>
         <div class="subtitle sub1">Please enter the required information below according to your passport</div>
         <div class="input-container ic1">
+            <!--Input for first name-->
             <input id="firstname" class="input" type="text" placeholder=" " onkeypress="return allLetter(event)" />
             <div class=" cut "></div>
             <label for="firstname " class="placeholder ">First name</label>
         </div>
         <div class="input-container ic2 ">
+            <!--Input for last name-->
             <input id="lastname" class="input " type="text " placeholder=" " onkeypress="return allLetter(event)" />
             <div class="cut "></div>
             <label for="lastname " class="placeholder ">Last name</label>
         </div>
         <div class="input-container ic2">
+            <!--Input for birthday-->
             <input id="bday" class="input_date input_bday" type="date" placeholder=" " />
             <select id="gender" class="select_gender">
+                <!--Gives a drop down list of the following values-->
                 <option style="display: none " selected> </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -39,16 +44,19 @@
             <label for="gender" class="placeholder_gender ">Gender</label>
         </div>
         <div class="input-container ic2 address">
+            <!--Input for street address-->
             <input id="street" class="input address" type="text" placeholder=" " />
             <div class="cut address-cut "></div>
             <label for="street " class="placeholder">Street Address</>
         </div>
         <div class="input-container ic2 row">
+            <!--Input for City-->
             <input id="city" class="input city-box" type="text" placeholder=" " />
             <div class="cut cut-short"></div>
             <label for="city" class="placeholder">City</>
         </div>
         <div class="input-container ic2 row">
+            <!--Input for province/state-->
             <input id="province" class="input prov-box " type="text" placeholder=" " />
             <div class="cut prov-cut "></div>
             <label for="province" class="placeholder ">State / Province</>
@@ -56,33 +64,38 @@
         <div class="input-container ic2 space">
         </div>
         <div class="input-container ic2 row">
+            <!--Input for postal code-->
             <input id="postal" class="input postal-box" type="text" placeholder=" " maxlength="4" onkeypress="return onlyNumberKey(event)" />
             <div class="cut postal-cut"></div>
             <label for="province " class="placeholder">Postal Code</>
         </div>
         <div class="input-container ic2 row">
+            <!--Input for country-->
             <input id="country" class="input prov-box" type="text" placeholder=" " />
             <div class="cut country-cut"></div>
             <label for="country " class="placeholder ">Country</>
         </div>
         <div class="input-container ic2">
+            <!--Input for email-->
             <input id="email" class="input" type="text" placeholder=" "/>
             <div class="cut cut-short"></div>
             <label for="email" class="placeholder">Email</>
         </div>
         <div class="input-container ic2">
+            <!--Input for contact number-->
             <input id="contact" class="input contact-box" type="text" placeholder=" " maxlength="11" onkeypress="return onlyNumberKey(event) "/>
             <div class="cut contact-cut"></div>
             <label for="contact" class="placeholder">Contact Number</>
         </div>
         <button type="text" class="submit next1" id="next1" onclick="next(1)">Next</button>
       </div>
-<!-- =============================================================================== -->
+<!-- ============================================== Form 2 ========================================================== -->
       <div class="form2 " id="form2">
         <div class="title ">Flight Reservation</div>
         <div class="subtitle sub2 ">Flight Details</div>
         <div class="form2_upper ">
         <div class="input-container ic2 fare ">
+            <!--Input for fare-->
             <select id="fare" class="select_gender select_fare " onchange="change_fare()">
                 <option style="display: none" selected> </option>
                 <option value="One-Way">One-Way</option>
@@ -92,6 +105,7 @@
             <label for="fare " class="placeholder placeholder_fare ">Fare</label>
         </div>
         <div class="input-container ic2 fare ">
+            <!--Input for ticket class-->
             <select id="ticket_class" class="select_gender select_fare ">
                 <option value="Economy"selected>Economy Class</option>
                 <option value="First class">First Class</option>
@@ -102,6 +116,7 @@
         </div>
     </div>
     <div class="input-container ic2 row ">
+        <!--Input for City Departure-->
         <input id="city_from" class="input depart-box " type="text" placeholder=" " list="cityname">
         <datalist id="cityname">
                 <option value="Davao">
@@ -114,6 +129,7 @@
             <label for="city " class="placeholder ">Departing from</>
         </div>
         <div class="input-container ic2 row ">
+            <!--Input for City Destination-->
             <input id="city_destination" class="input destination-box " type="text" placeholder=" " list="cityname"/>
             <datalist id="cityname">
                 <option value="Davao">
@@ -133,11 +149,13 @@
             <label for="province " class="placeholder indate1 " id="return_label" style="visibility: hidden; ">Return Date and Time</label>
         </div>
         <div class="dep-ret-date height100">
+            <!--Input for Departure and Return Date-->
             <input id="depart_date" class="input_date " type="datetime-local" placeholder=" " />
             <input id="return_date" class="input_date " type="datetime-local" placeholder=" " style="visibility: hidden; " />
         </div>
     
         <div class="input-container ic2">
+            <!--Input for Airlines-->
             <input id="airlines" class="input prov-box " type="text" placeholder=" " list="airlinechoose"/>
             <datalist id="airlinechoose">
                 <option value="DavAir">
@@ -153,7 +171,10 @@
             <button type="text" class="submit " id="back1" onclick="back(1) ">Back</button>
             <button type="text" class="page_next " id="next2" onclick="reserve();">Reserve Flight</button>
         </div>
-        <!-- The Modal -->
+
+
+<!-- ======================================== Modal For Itinerary Receipt =================================================== -->
+                                        <!--Displays summary of reservation-->
     <div id="myModal" class="modal ">
 
         <!-- Modal content -->
@@ -206,7 +227,7 @@
         </div>
     </div>
 </div>
-<!-- =============================================================================== -->
+<!-- ============================================== Form 3 ========================================================== -->
       <div class="form3 " id="form3">
         <div class="title ">Flight Reservation</div>
         <div class="subtitle sub3 ">Reservation Complete!</div>

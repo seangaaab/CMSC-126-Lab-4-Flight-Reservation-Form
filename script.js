@@ -1,4 +1,9 @@
+// Javascript File for html: Flight Reservation
+
+
+// Function for showing/hiding forms
 function next(a) {
+    // if next is inserted with a specific integer, it will hide a specific form and show another one
     if (a == 1) {
         document.getElementById("form1").style.display = "none";
         document.getElementById("form2").style.display = "block";
@@ -13,6 +18,7 @@ function next(a) {
     }
 }
 
+// Same goes for the back function
 function back(a) {
     if (a == 1) {
         document.getElementById("form1").style.display = "block";
@@ -21,6 +27,75 @@ function back(a) {
     }
 }
 
+// gets the input from all textboxes and displays it
+function reserve() {
+    // get input
+    let fname = document.getElementById("firstname").value;
+    let lname = document.getElementById("lastname").value;
+    let bday = getBday();
+    let gender = document.getElementById("gender").value;
+    let street = document.getElementById("street").value;
+    let city = document.getElementById("city").value;
+    let province = document.getElementById("province").value;
+    let postal = document.getElementById("postal").value;
+    let country = document.getElementById("country").value;
+    let email = document.getElementById("email").value;
+    let contact = document.getElementById("contact").value;
+    let fare = document.getElementById("fare").value;
+    let ticket_class = document.getElementById("ticket_class").value;
+    let depart_from = document.getElementById("city_from").value;
+    let destination = document.getElementById("city_destination").value;
+    let depart_date = getDepDay();
+    let return_date = getRetDay();
+    let airlines = document.getElementById("airlines").value;
+
+    // if inputs are null or not filled up
+    if (fname == null || fname == "", lname == null || lname == "", bday == null || bday == "", gender == null || gender == "", street == null || street == "", city == null || city == "", province == null || province == "", postal == null || postal == "", country == null || country == "", (email == null || email == "") || (validateEmail(email) == false), contact == null || contact == "", fare == null || fare == "", ticket_class == null || ticket_class == "", depart_from == null || depart_from == "", depart_date == null || depart_date == "", destination == null || destination == "", return_date == null || return_date == "", airlines == null || airlines == "") {
+        alert("Please fill-up all fields.");
+        return false;
+        // if email is filled up but not valid
+    } else if ((email !== null || email !== "") && (validateEmail(email)) == false) {
+        alert("Please enter a valid email address");
+        return false;
+        // if depart date is filled up but not valid
+    } else if ((depart_date !== null || depart_date !== "") && (checkdate() == false)) {
+        alert("Depart date must be later than the current time.\nReturn date must also be sooner than depart date.")
+        return false;
+        // if inputed cities is filled up but not valid
+    } else if ((depart_from !== null || depart_from !== "") && (destination !== null || destination !== "") && (checkCity() == false)) {
+        alert("Please input available cities only.\nCity of departure and destination must not be the same.");
+        document.getElementById("city_from").value = "";
+        document.getElementById("city_destination").value = "";
+        return false;
+        // if airline is filled up but not valid
+    } else if ((airlines !== null || airlines !== "") && (checkAir() == false)) {
+        alert("Please input available airlines only.");
+        document.getElementById("airlines").value = "";
+        return false;
+    } else {
+        next(2);
+    }
+    // full name and address is formatted 
+    let fullname = fname + " " + lname;
+    let address = street + ", " + city + ", " + province + " " + postal + ", " + country;
+
+    // outputs all input
+    document.getElementById("out_name").innerText = fullname;
+    document.getElementById("out_bday").innerText = bday;
+    document.getElementById("out_gender").innerText = gender;
+    document.getElementById("out_address").innerText = address;
+    document.getElementById("out_email").innerText = email;
+    document.getElementById("out_number").innerText = contact;
+    document.getElementById("out_fare").innerText = fare;
+    document.getElementById("out_class").innerText = ticket_class;
+    document.getElementById("out_depart").innerText = depart_from;
+    document.getElementById("out_destination").innerText = destination;
+    document.getElementById("out_dep-date").innerText = depart_date;
+    document.getElementById("out_ret-date").innerText = return_date;
+    document.getElementById("out_airline").innerText = airlines;
+}
+
+// When modal "x" button is pressed, it will hide the modal, and empty the value for the scanned input values and also empty the output labels
 function modal_close() {
     document.getElementById("myModal").style.display = "none";
     fname = "";
@@ -59,61 +134,7 @@ function modal_close() {
     document.getElementById("out_airline").innerText = "";
 }
 
-function reserve() {
-    let fname = document.getElementById("firstname").value;
-    let lname = document.getElementById("lastname").value;
-    let bday = getBday();
-    let gender = document.getElementById("gender").value;
-    let street = document.getElementById("street").value;
-    let city = document.getElementById("city").value;
-    let province = document.getElementById("province").value;
-    let postal = document.getElementById("postal").value;
-    let country = document.getElementById("country").value;
-    let email = document.getElementById("email").value;
-    let contact = document.getElementById("contact").value;
-    let fare = document.getElementById("fare").value;
-    let ticket_class = document.getElementById("ticket_class").value;
-    let depart_from = document.getElementById("city_from").value;
-    let destination = document.getElementById("city_destination").value;
-    let depart_date = getDepDay();
-    let return_date = getRetDay();
-    let airlines = document.getElementById("airlines").value;
-
-    if (fname == null || fname == "", lname == null || lname == "", bday == null || bday == "", gender == null || gender == "", street == null || street == "", city == null || city == "", province == null || province == "", postal == null || postal == "", country == null || country == "", (email == null || email == "") || (validateEmail(email) == false), contact == null || contact == "", fare == null || fare == "", ticket_class == null || ticket_class == "", depart_from == null || depart_from == "", depart_date == null || depart_date == "", destination == null || destination == "", return_date == null || return_date == "", airlines == null || airlines == "") {
-        alert("Please fill-up all fields.");
-    } else if (email == null || email == "" || (validateEmail(email)) == false) {
-        alert("Please enter a valid email address");
-    } else if (checkdate() == false) {
-        alert("Depart date must be later than the current time.\nReturn date must also be sooner than depart date.")
-    } else if (checkCity() == false) {
-        alert("Please input only available cities.\nCity of departure and destination must not be the same.");
-        document.getElementById("city_from").value = "";
-        document.getElementById("city_destination").value = "";
-    } else if (checkAir() == false) {
-        alert("Please input only available airlines");
-        document.getElementById("airlines").value = "";
-    } else {
-        next(2);
-    }
-
-    let fullname = fname + " " + lname;
-    let address = street + ", " + city + ", " + province + " " + postal + ", " + country;
-
-    document.getElementById("out_name").innerText = fullname;
-    document.getElementById("out_bday").innerText = bday;
-    document.getElementById("out_gender").innerText = gender;
-    document.getElementById("out_address").innerText = address;
-    document.getElementById("out_email").innerText = email;
-    document.getElementById("out_number").innerText = contact;
-    document.getElementById("out_fare").innerText = fare;
-    document.getElementById("out_class").innerText = ticket_class;
-    document.getElementById("out_depart").innerText = depart_from;
-    document.getElementById("out_destination").innerText = destination;
-    document.getElementById("out_dep-date").innerText = depart_date;
-    document.getElementById("out_ret-date").innerText = return_date;
-    document.getElementById("out_airline").innerText = airlines;
-}
-
+// same as modal_close() function but also empties the input textboxes in the forms
 function empty() {
     document.getElementById("firstname").value = "";
     document.getElementById("lastname").value = "";
@@ -170,6 +191,7 @@ function empty() {
     document.getElementById("out_airline").innerText = "";
 }
 
+// detects if the fare is changed. if the fare is round trip, it will unhide the return date and time input box
 function change_fare() {
 
     if (document.getElementById("fare").value == "Round-Trip") {
@@ -186,12 +208,15 @@ function change_fare() {
     }
 }
 
+// checks the date if it is valid
 function checkdate() {
     let now = new Date();
     let dep = new Date(document.getElementById("depart_date").value);
     let ret = new Date(document.getElementById("return_date").value);
+    // if fare is one-way and departure date is later than current time, it will re turn true
     if ((dep > now) && (ret == "Invalid Date" || ret == "") && (document.getElementById("fare").value == "One-Way")) {
         return true;
+        // if fare is Round Trip and both return and departure date is later than current time and return date is later than departure date, it returns true
     } else if ((ret > now) && (dep > now) && (dep < ret)) {
         return true;
     } else {
@@ -199,6 +224,14 @@ function checkdate() {
     }
 }
 
+// checks if inputed email is a valid email using a given pattern
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+
+// checks if selected cities are valid or available from the choices
 function checkCity() {
     let c1 = document.getElementById("city_from").value;
     let c2 = document.getElementById("city_destination").value;
@@ -209,6 +242,7 @@ function checkCity() {
     }
 }
 
+// checks if selected airline is valid and available in choices
 function checkAir() {
     let airline = document.getElementById("airlines").value;
     if (airline == "DavAir" || airline == "Cebu Pacific" || airline == "Manila Express" || airline == "Philippine Airlines" || airline == "SpaceX") {
@@ -218,6 +252,8 @@ function checkAir() {
     }
 }
 
+
+// gets the input from id="fare"
 function getFare() {
     if (document.getElementById("fare").value = "rt") {
         return "Round-Trip";
@@ -227,6 +263,8 @@ function getFare() {
     }
 }
 
+
+// gets birthdate  and returns it in formatted form
 function getBday() {
     myBday = new Date(document.getElementById("bday").value);
     let dateOptions = { day: '2-digit', month: 'short', year: 'numeric' };
@@ -234,6 +272,7 @@ function getBday() {
     return bday;
 }
 
+// gets departure date and returns it in formatted form
 function getDepDay() {
     let dateOptions = { day: '2-digit', month: 'short', year: 'numeric' };
     depDate = new Date(document.getElementById("depart_date").value);
@@ -243,6 +282,7 @@ function getDepDay() {
     return dep;
 }
 
+// gets return date and returns it in formatted form
 function getRetDay() {
     let dateOptions = { day: '2-digit', month: 'short', year: 'numeric' };
     retDate = new Date(document.getElementById("return_date").value);
@@ -252,45 +292,7 @@ function getRetDay() {
     return ret;
 }
 
-function month_word(a) {
-    if (a == 1) {
-        return "Jan";
-    }
-    if (a == 2) {
-        return "Feb";
-    }
-    if (a == 3) {
-        return "Mar";
-    }
-    if (a == 4) {
-        return "Apr";
-    }
-    if (a == 5) {
-        return "May";
-    }
-    if (a == 6) {
-        return "Jun";
-    }
-    if (a == 7) {
-        return "Jul";
-    }
-    if (a == 8) {
-        return "Aug";
-    }
-    if (a == 9) {
-        return "Sep";
-    }
-    if (a == 10) {
-        return "Oct";
-    }
-    if (a == 11) {
-        return "Nov";
-    }
-    if (a == 12) {
-        return "Dec";
-    }
-}
-
+// Restricts input to only numbers
 function onlyNumberKey(evt) {
     var ASCIICode = evt.which ? evt.which : evt.keyCode;
     if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) {
@@ -300,6 +302,7 @@ function onlyNumberKey(evt) {
     return true;
 }
 
+// Restricts input to only numbers
 function allLetter(evt) {
     var ASCIICode = evt.which ? evt.which : evt.keyCode;
     if (ASCIICode > 31 && ASCIICode < 65 && ASCIICode != 32) {
@@ -307,9 +310,4 @@ function allLetter(evt) {
         return false;
     }
     return true;
-}
-
-function validateEmail(email) {
-    var re = /\S+@\S+\.\S+/;
-    return re.test(email);
 }
